@@ -2,25 +2,22 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-int convertire(char s[])
-{
-	int nr = 0;
-	for (int i = 0; i < strlen(s); i++)
-		if (s[i] >= '0' && s[i] <= '9')
-			nr = nr * 10 + s[i] - '0';
-	return nr;
-}
 int main()
 {
-	int suma = 0;
-	char s[100];
-	FILE* fp = fopen("in.txt", "r");
-	if (fp)
-	{
-		while (fgets(s, 100, fp))
-			suma += convertire(s);
-	}
-	printf("%d\n", suma);
-	delete(fp);
+	int n = 0;
+	char s[256];
+	char v[256][256];
+	while (scanf("%255s", s))
+		strcpy(v[n++], s);
+	for(int i=0;i<n-1;i++)
+		for(int j=i+1;j<n;j++)
+		if (strlen(v[i]) > strlen(v[j]))
+		{
+			strcpy(s, v[i]);
+			strcpy(v[i], v[j]);
+			strcpy(v[j], s);
+		}
+	for (int i = 0; i < n; i++)
+		cout << v[i] << endl;
 	return 0;
 }
